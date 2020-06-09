@@ -1,0 +1,497 @@
+
+LAB_2.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000027e  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  000002d2  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  000002d2  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000304  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 000000b8  00000000  00000000  00000340  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000be4  00000000  00000000  000003f8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000005f0  00000000  00000000  00000fdc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   0000064b  00000000  00000000  000015cc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000154  00000000  00000000  00001c18  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000003cc  00000000  00000000  00001d6c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000257  00000000  00000000  00002138  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 000000a8  00000000  00000000  0000238f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   8:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  10:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  14:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  18:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  1c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  20:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  24:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  28:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  2c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  30:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  34:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  38:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  3c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  40:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  44:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  48:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  4c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  50:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+  60:	0e 94 65 00 	call	0xca	; 0xca <main>
+  64:	0c 94 3d 01 	jmp	0x27a	; 0x27a <_exit>
+
+00000068 <__bad_interrupt>:
+  68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000006c <BUTTON_INIT>:
+int BUTTON_CHECK()
+{
+	 uint8 B;
+	 B = GET_BIT(BUTTON_PIN,BUTTON);
+	 return B;
+}
+  6c:	b8 98       	cbi	0x17, 0	; 23
+  6e:	c0 9a       	sbi	0x18, 0	; 24
+  70:	80 b7       	in	r24, 0x30	; 48
+  72:	8b 7f       	andi	r24, 0xFB	; 251
+  74:	80 bf       	out	0x30, r24	; 48
+  76:	08 95       	ret
+
+00000078 <LED1_ON>:
+#include "BIT_MATH.h"
+#include "App_conf.h"
+
+void LED1_ON()
+{
+	SET_BIT(LED_PORT,LED1);
+  78:	d8 9a       	sbi	0x1b, 0	; 27
+  7a:	08 95       	ret
+
+0000007c <LED2_ON>:
+}
+
+void LED2_ON()
+{
+	SET_BIT(LED_PORT,LED2);
+  7c:	d9 9a       	sbi	0x1b, 1	; 27
+  7e:	08 95       	ret
+
+00000080 <LED3_ON>:
+}
+
+void LED3_ON()
+{
+	SET_BIT(LED_PORT,LED3);
+  80:	da 9a       	sbi	0x1b, 2	; 27
+  82:	08 95       	ret
+
+00000084 <LED4_ON>:
+}
+
+void LED4_ON()
+{
+	SET_BIT(LED_PORT,LED4);
+  84:	db 9a       	sbi	0x1b, 3	; 27
+  86:	08 95       	ret
+
+00000088 <LED5_ON>:
+}
+
+void LED5_ON()
+{
+	SET_BIT(LED_PORT,LED5);
+  88:	dc 9a       	sbi	0x1b, 4	; 27
+  8a:	08 95       	ret
+
+0000008c <LED6_ON>:
+}
+
+void LED6_ON()
+{
+	SET_BIT(LED_PORT,LED6);
+  8c:	dd 9a       	sbi	0x1b, 5	; 27
+  8e:	08 95       	ret
+
+00000090 <LED7_ON>:
+}
+
+void LED7_ON()
+{
+	SET_BIT(LED_PORT,LED7);
+  90:	de 9a       	sbi	0x1b, 6	; 27
+  92:	08 95       	ret
+
+00000094 <LED8_ON>:
+}
+
+void LED8_ON()
+{
+	SET_BIT(LED_PORT,LED8);
+  94:	df 9a       	sbi	0x1b, 7	; 27
+  96:	08 95       	ret
+
+00000098 <LED1_OFF>:
+}
+void LED1_OFF()
+{
+	CLEAR_BIT(LED_PORT,LED1);
+  98:	d8 98       	cbi	0x1b, 0	; 27
+  9a:	08 95       	ret
+
+0000009c <LED2_OFF>:
+}
+
+void LED2_OFF()
+{
+	CLEAR_BIT(LED_PORT,LED2);
+  9c:	d9 98       	cbi	0x1b, 1	; 27
+  9e:	08 95       	ret
+
+000000a0 <LED3_OFF>:
+}
+
+void LED3_OFF()
+{
+	CLEAR_BIT(LED_PORT,LED3);
+  a0:	da 98       	cbi	0x1b, 2	; 27
+  a2:	08 95       	ret
+
+000000a4 <LED4_OFF>:
+}
+
+void LED4_OFF()
+{
+	CLEAR_BIT(LED_PORT,LED4);
+  a4:	db 98       	cbi	0x1b, 3	; 27
+  a6:	08 95       	ret
+
+000000a8 <LED5_OFF>:
+}
+
+void LED5_OFF()
+{
+	CLEAR_BIT(LED_PORT,LED5);
+  a8:	dc 98       	cbi	0x1b, 4	; 27
+  aa:	08 95       	ret
+
+000000ac <LED6_OFF>:
+}
+
+void LED6_OFF()
+{
+	CLEAR_BIT(LED_PORT,LED6);
+  ac:	dd 98       	cbi	0x1b, 5	; 27
+  ae:	08 95       	ret
+
+000000b0 <LED7_OFF>:
+}
+
+void LED7_OFF()
+{   
+	CLEAR_BIT(LED_PORT,LED7);
+  b0:	de 98       	cbi	0x1b, 6	; 27
+  b2:	08 95       	ret
+
+000000b4 <LED8_OFF>:
+}
+
+void LED8_OFF()
+{
+	CLEAR_BIT(LED_PORT,LED8);
+  b4:	df 98       	cbi	0x1b, 7	; 27
+  b6:	08 95       	ret
+
+000000b8 <LED_INIT>:
+}
+
+
+void LED_INIT()
+{
+	SET_BIT(LED_DDR,LED1);
+  b8:	d0 9a       	sbi	0x1a, 0	; 26
+	SET_BIT(LED_DDR,LED2);
+  ba:	d1 9a       	sbi	0x1a, 1	; 26
+	SET_BIT(LED_DDR,LED3);
+  bc:	d2 9a       	sbi	0x1a, 2	; 26
+	SET_BIT(LED_DDR,LED4);
+  be:	d3 9a       	sbi	0x1a, 3	; 26
+	SET_BIT(LED_DDR,LED5);
+  c0:	d4 9a       	sbi	0x1a, 4	; 26
+	SET_BIT(LED_DDR,LED6);
+  c2:	d5 9a       	sbi	0x1a, 5	; 26
+	SET_BIT(LED_DDR,LED7);
+  c4:	d6 9a       	sbi	0x1a, 6	; 26
+	SET_BIT(LED_DDR,LED8);
+  c6:	d7 9a       	sbi	0x1a, 7	; 26
+  c8:	08 95       	ret
+
+000000ca <main>:
+#include "LED_DRIVER.h"
+
+
+int main(void)
+{
+    BUTTON_INIT();
+  ca:	0e 94 36 00 	call	0x6c	; 0x6c <BUTTON_INIT>
+	LED_INIT();
+  ce:	0e 94 5c 00 	call	0xb8	; 0xb8 <LED_INIT>
+	
+    while (1) 
+    {
+		if ( BUTTON_CHECK()==LOW)
+  d2:	b0 99       	sbic	0x16, 0	; 22
+  d4:	fe cf       	rjmp	.-4      	; 0xd2 <main+0x8>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  d6:	2f ef       	ldi	r18, 0xFF	; 255
+  d8:	80 e7       	ldi	r24, 0x70	; 112
+  da:	92 e0       	ldi	r25, 0x02	; 2
+  dc:	21 50       	subi	r18, 0x01	; 1
+  de:	80 40       	sbci	r24, 0x00	; 0
+  e0:	90 40       	sbci	r25, 0x00	; 0
+  e2:	e1 f7       	brne	.-8      	; 0xdc <main+0x12>
+  e4:	00 c0       	rjmp	.+0      	; 0xe6 <main+0x1c>
+  e6:	00 00       	nop
+		{
+			_delay_ms(50);
+			LED1_ON();
+  e8:	0e 94 3c 00 	call	0x78	; 0x78 <LED1_ON>
+			LED2_OFF();
+  ec:	0e 94 4e 00 	call	0x9c	; 0x9c <LED2_OFF>
+			LED3_OFF();
+  f0:	0e 94 50 00 	call	0xa0	; 0xa0 <LED3_OFF>
+			LED4_OFF();
+  f4:	0e 94 52 00 	call	0xa4	; 0xa4 <LED4_OFF>
+			LED5_OFF();
+  f8:	0e 94 54 00 	call	0xa8	; 0xa8 <LED5_OFF>
+			LED6_OFF();
+  fc:	0e 94 56 00 	call	0xac	; 0xac <LED6_OFF>
+			LED7_OFF();
+ 100:	0e 94 58 00 	call	0xb0	; 0xb0 <LED7_OFF>
+			LED8_OFF();
+ 104:	0e 94 5a 00 	call	0xb4	; 0xb4 <LED8_OFF>
+ 108:	2f ef       	ldi	r18, 0xFF	; 255
+ 10a:	83 ed       	ldi	r24, 0xD3	; 211
+ 10c:	90 e3       	ldi	r25, 0x30	; 48
+ 10e:	21 50       	subi	r18, 0x01	; 1
+ 110:	80 40       	sbci	r24, 0x00	; 0
+ 112:	90 40       	sbci	r25, 0x00	; 0
+ 114:	e1 f7       	brne	.-8      	; 0x10e <main+0x44>
+ 116:	00 c0       	rjmp	.+0      	; 0x118 <main+0x4e>
+ 118:	00 00       	nop
+			_delay_ms(1000);
+			LED1_OFF();
+ 11a:	0e 94 4c 00 	call	0x98	; 0x98 <LED1_OFF>
+			LED2_ON();
+ 11e:	0e 94 3e 00 	call	0x7c	; 0x7c <LED2_ON>
+			LED3_OFF();
+ 122:	0e 94 50 00 	call	0xa0	; 0xa0 <LED3_OFF>
+			LED4_OFF();
+ 126:	0e 94 52 00 	call	0xa4	; 0xa4 <LED4_OFF>
+			LED5_OFF();
+ 12a:	0e 94 54 00 	call	0xa8	; 0xa8 <LED5_OFF>
+			LED6_OFF();
+ 12e:	0e 94 56 00 	call	0xac	; 0xac <LED6_OFF>
+			LED7_OFF();
+ 132:	0e 94 58 00 	call	0xb0	; 0xb0 <LED7_OFF>
+			LED8_OFF();
+ 136:	0e 94 5a 00 	call	0xb4	; 0xb4 <LED8_OFF>
+ 13a:	2f ef       	ldi	r18, 0xFF	; 255
+ 13c:	83 ed       	ldi	r24, 0xD3	; 211
+ 13e:	90 e3       	ldi	r25, 0x30	; 48
+ 140:	21 50       	subi	r18, 0x01	; 1
+ 142:	80 40       	sbci	r24, 0x00	; 0
+ 144:	90 40       	sbci	r25, 0x00	; 0
+ 146:	e1 f7       	brne	.-8      	; 0x140 <main+0x76>
+ 148:	00 c0       	rjmp	.+0      	; 0x14a <main+0x80>
+ 14a:	00 00       	nop
+			_delay_ms(1000);
+			LED1_OFF();
+ 14c:	0e 94 4c 00 	call	0x98	; 0x98 <LED1_OFF>
+			LED2_OFF();
+ 150:	0e 94 4e 00 	call	0x9c	; 0x9c <LED2_OFF>
+			LED3_ON();
+ 154:	0e 94 40 00 	call	0x80	; 0x80 <LED3_ON>
+			LED4_OFF();
+ 158:	0e 94 52 00 	call	0xa4	; 0xa4 <LED4_OFF>
+			LED5_OFF();
+ 15c:	0e 94 54 00 	call	0xa8	; 0xa8 <LED5_OFF>
+			LED6_OFF();
+ 160:	0e 94 56 00 	call	0xac	; 0xac <LED6_OFF>
+			LED7_OFF();
+ 164:	0e 94 58 00 	call	0xb0	; 0xb0 <LED7_OFF>
+			LED8_OFF();
+ 168:	0e 94 5a 00 	call	0xb4	; 0xb4 <LED8_OFF>
+ 16c:	2f ef       	ldi	r18, 0xFF	; 255
+ 16e:	83 ed       	ldi	r24, 0xD3	; 211
+ 170:	90 e3       	ldi	r25, 0x30	; 48
+ 172:	21 50       	subi	r18, 0x01	; 1
+ 174:	80 40       	sbci	r24, 0x00	; 0
+ 176:	90 40       	sbci	r25, 0x00	; 0
+ 178:	e1 f7       	brne	.-8      	; 0x172 <main+0xa8>
+ 17a:	00 c0       	rjmp	.+0      	; 0x17c <main+0xb2>
+ 17c:	00 00       	nop
+			_delay_ms(1000); 
+			LED1_OFF();
+ 17e:	0e 94 4c 00 	call	0x98	; 0x98 <LED1_OFF>
+			LED2_OFF();
+ 182:	0e 94 4e 00 	call	0x9c	; 0x9c <LED2_OFF>
+			LED3_OFF();
+ 186:	0e 94 50 00 	call	0xa0	; 0xa0 <LED3_OFF>
+			LED4_ON();
+ 18a:	0e 94 42 00 	call	0x84	; 0x84 <LED4_ON>
+			LED5_OFF();
+ 18e:	0e 94 54 00 	call	0xa8	; 0xa8 <LED5_OFF>
+			LED6_OFF();
+ 192:	0e 94 56 00 	call	0xac	; 0xac <LED6_OFF>
+			LED7_OFF();
+ 196:	0e 94 58 00 	call	0xb0	; 0xb0 <LED7_OFF>
+			LED8_OFF();
+ 19a:	0e 94 5a 00 	call	0xb4	; 0xb4 <LED8_OFF>
+ 19e:	2f ef       	ldi	r18, 0xFF	; 255
+ 1a0:	83 ed       	ldi	r24, 0xD3	; 211
+ 1a2:	90 e3       	ldi	r25, 0x30	; 48
+ 1a4:	21 50       	subi	r18, 0x01	; 1
+ 1a6:	80 40       	sbci	r24, 0x00	; 0
+ 1a8:	90 40       	sbci	r25, 0x00	; 0
+ 1aa:	e1 f7       	brne	.-8      	; 0x1a4 <main+0xda>
+ 1ac:	00 c0       	rjmp	.+0      	; 0x1ae <main+0xe4>
+ 1ae:	00 00       	nop
+			_delay_ms(1000);
+			LED1_OFF();
+ 1b0:	0e 94 4c 00 	call	0x98	; 0x98 <LED1_OFF>
+			LED2_OFF();
+ 1b4:	0e 94 4e 00 	call	0x9c	; 0x9c <LED2_OFF>
+			LED3_OFF();
+ 1b8:	0e 94 50 00 	call	0xa0	; 0xa0 <LED3_OFF>
+			LED4_OFF();
+ 1bc:	0e 94 52 00 	call	0xa4	; 0xa4 <LED4_OFF>
+			LED5_ON();
+ 1c0:	0e 94 44 00 	call	0x88	; 0x88 <LED5_ON>
+			LED6_OFF();
+ 1c4:	0e 94 56 00 	call	0xac	; 0xac <LED6_OFF>
+			LED7_OFF();
+ 1c8:	0e 94 58 00 	call	0xb0	; 0xb0 <LED7_OFF>
+			LED8_OFF();
+ 1cc:	0e 94 5a 00 	call	0xb4	; 0xb4 <LED8_OFF>
+ 1d0:	2f ef       	ldi	r18, 0xFF	; 255
+ 1d2:	83 ed       	ldi	r24, 0xD3	; 211
+ 1d4:	90 e3       	ldi	r25, 0x30	; 48
+ 1d6:	21 50       	subi	r18, 0x01	; 1
+ 1d8:	80 40       	sbci	r24, 0x00	; 0
+ 1da:	90 40       	sbci	r25, 0x00	; 0
+ 1dc:	e1 f7       	brne	.-8      	; 0x1d6 <main+0x10c>
+ 1de:	00 c0       	rjmp	.+0      	; 0x1e0 <main+0x116>
+ 1e0:	00 00       	nop
+			_delay_ms(1000);
+			LED1_OFF();
+ 1e2:	0e 94 4c 00 	call	0x98	; 0x98 <LED1_OFF>
+			LED2_OFF();
+ 1e6:	0e 94 4e 00 	call	0x9c	; 0x9c <LED2_OFF>
+			LED3_OFF();
+ 1ea:	0e 94 50 00 	call	0xa0	; 0xa0 <LED3_OFF>
+			LED4_OFF();
+ 1ee:	0e 94 52 00 	call	0xa4	; 0xa4 <LED4_OFF>
+			LED5_OFF();
+ 1f2:	0e 94 54 00 	call	0xa8	; 0xa8 <LED5_OFF>
+			LED6_ON();
+ 1f6:	0e 94 46 00 	call	0x8c	; 0x8c <LED6_ON>
+			LED7_OFF();
+ 1fa:	0e 94 58 00 	call	0xb0	; 0xb0 <LED7_OFF>
+			LED8_OFF();
+ 1fe:	0e 94 5a 00 	call	0xb4	; 0xb4 <LED8_OFF>
+ 202:	2f ef       	ldi	r18, 0xFF	; 255
+ 204:	83 ed       	ldi	r24, 0xD3	; 211
+ 206:	90 e3       	ldi	r25, 0x30	; 48
+ 208:	21 50       	subi	r18, 0x01	; 1
+ 20a:	80 40       	sbci	r24, 0x00	; 0
+ 20c:	90 40       	sbci	r25, 0x00	; 0
+ 20e:	e1 f7       	brne	.-8      	; 0x208 <main+0x13e>
+ 210:	00 c0       	rjmp	.+0      	; 0x212 <main+0x148>
+ 212:	00 00       	nop
+			_delay_ms(1000);
+			LED1_OFF();
+ 214:	0e 94 4c 00 	call	0x98	; 0x98 <LED1_OFF>
+			LED2_OFF();
+ 218:	0e 94 4e 00 	call	0x9c	; 0x9c <LED2_OFF>
+			LED3_OFF();
+ 21c:	0e 94 50 00 	call	0xa0	; 0xa0 <LED3_OFF>
+			LED4_OFF();
+ 220:	0e 94 52 00 	call	0xa4	; 0xa4 <LED4_OFF>
+			LED5_OFF();
+ 224:	0e 94 54 00 	call	0xa8	; 0xa8 <LED5_OFF>
+			LED6_OFF();
+ 228:	0e 94 56 00 	call	0xac	; 0xac <LED6_OFF>
+			LED7_ON();
+ 22c:	0e 94 48 00 	call	0x90	; 0x90 <LED7_ON>
+			LED8_OFF();
+ 230:	0e 94 5a 00 	call	0xb4	; 0xb4 <LED8_OFF>
+ 234:	2f ef       	ldi	r18, 0xFF	; 255
+ 236:	83 ed       	ldi	r24, 0xD3	; 211
+ 238:	90 e3       	ldi	r25, 0x30	; 48
+ 23a:	21 50       	subi	r18, 0x01	; 1
+ 23c:	80 40       	sbci	r24, 0x00	; 0
+ 23e:	90 40       	sbci	r25, 0x00	; 0
+ 240:	e1 f7       	brne	.-8      	; 0x23a <main+0x170>
+ 242:	00 c0       	rjmp	.+0      	; 0x244 <main+0x17a>
+ 244:	00 00       	nop
+			_delay_ms(1000);
+			LED1_OFF();
+ 246:	0e 94 4c 00 	call	0x98	; 0x98 <LED1_OFF>
+			LED2_OFF();
+ 24a:	0e 94 4e 00 	call	0x9c	; 0x9c <LED2_OFF>
+			LED3_OFF();
+ 24e:	0e 94 50 00 	call	0xa0	; 0xa0 <LED3_OFF>
+			LED4_OFF();
+ 252:	0e 94 52 00 	call	0xa4	; 0xa4 <LED4_OFF>
+			LED5_OFF();
+ 256:	0e 94 54 00 	call	0xa8	; 0xa8 <LED5_OFF>
+			LED6_OFF();
+ 25a:	0e 94 56 00 	call	0xac	; 0xac <LED6_OFF>
+			LED7_OFF();
+ 25e:	0e 94 58 00 	call	0xb0	; 0xb0 <LED7_OFF>
+			LED8_ON();
+ 262:	0e 94 4a 00 	call	0x94	; 0x94 <LED8_ON>
+ 266:	2f ef       	ldi	r18, 0xFF	; 255
+ 268:	83 ed       	ldi	r24, 0xD3	; 211
+ 26a:	90 e3       	ldi	r25, 0x30	; 48
+ 26c:	21 50       	subi	r18, 0x01	; 1
+ 26e:	80 40       	sbci	r24, 0x00	; 0
+ 270:	90 40       	sbci	r25, 0x00	; 0
+ 272:	e1 f7       	brne	.-8      	; 0x26c <main+0x1a2>
+ 274:	00 c0       	rjmp	.+0      	; 0x276 <main+0x1ac>
+ 276:	00 00       	nop
+ 278:	2c cf       	rjmp	.-424    	; 0xd2 <main+0x8>
+
+0000027a <_exit>:
+ 27a:	f8 94       	cli
+
+0000027c <__stop_program>:
+ 27c:	ff cf       	rjmp	.-2      	; 0x27c <__stop_program>

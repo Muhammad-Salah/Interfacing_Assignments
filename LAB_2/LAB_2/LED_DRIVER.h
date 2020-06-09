@@ -1,0 +1,108 @@
+﻿/*
+ * LED_DRIVER.h
+ *
+ * Created: 05/06/2020 08:17:47 ص
+ *  Author: mohamed
+ */ 
+
+
+#ifndef LED_DRIVER_H_
+#define LED_DRIVER_H_
+
+#include "BIT_MATH.h"
+#include "App_conf.h"
+
+void LED1_ON()
+{
+	SET_BIT(LED_PORT,LED1);
+}
+
+void LED2_ON()
+{
+	SET_BIT(LED_PORT,LED2);
+}
+
+void LED3_ON()
+{
+	SET_BIT(LED_PORT,LED3);
+}
+
+void LED4_ON()
+{
+	SET_BIT(LED_PORT,LED4);
+}
+
+void LED5_ON()
+{
+	SET_BIT(LED_PORT,LED5);
+}
+
+void LED6_ON()
+{
+	SET_BIT(LED_PORT,LED6);
+}
+
+void LED7_ON()
+{
+	SET_BIT(LED_PORT,LED7);
+}
+
+void LED8_ON()
+{
+	SET_BIT(LED_PORT,LED8);
+}
+void LED1_OFF()
+{
+	CLEAR_BIT(LED_PORT,LED1);
+}
+
+void LED2_OFF()
+{
+	CLEAR_BIT(LED_PORT,LED2);
+}
+
+void LED3_OFF()
+{
+	CLEAR_BIT(LED_PORT,LED3);
+}
+
+void LED4_OFF()
+{
+	CLEAR_BIT(LED_PORT,LED4);
+}
+
+void LED5_OFF()
+{
+	CLEAR_BIT(LED_PORT,LED5);
+}
+
+void LED6_OFF()
+{
+	CLEAR_BIT(LED_PORT,LED6);
+}
+
+void LED7_OFF()
+{   
+	CLEAR_BIT(LED_PORT,LED7);
+}
+
+void LED8_OFF()
+{
+	CLEAR_BIT(LED_PORT,LED8);
+}
+
+
+void LED_INIT()
+{
+	SET_BIT(LED_DDR,LED1);
+	SET_BIT(LED_DDR,LED2);
+	SET_BIT(LED_DDR,LED3);
+	SET_BIT(LED_DDR,LED4);
+	SET_BIT(LED_DDR,LED5);
+	SET_BIT(LED_DDR,LED6);
+	SET_BIT(LED_DDR,LED7);
+	SET_BIT(LED_DDR,LED8);
+
+}
+
+#endif /* LED_DRIVER_H_ */
